@@ -1,46 +1,41 @@
-// API URLs
-const randomMealURL = 'https://www.themealdb.com/api/json/v1/1/random.php';
-const mealCategoriesURL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
-
-// DOM Elements
-const randomMealImage = document.getElementById('randomMealImage');
-const randomMealName = document.getElementById('randomMealName');
-const searchInput = document.getElementById('searchInput');
-const mealCategoriesSection = document.getElementById('mealCategoriesSection');
-const categoryName = document.getElementById('categoryName');
-const mealGrid = document.getElementById('mealGrid');
-const modalOverlay = document.getElementById('modalOverlay');
-const modalMealName = document.getElementById('modalMealName');
+const rmURL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const MealCatURL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+const rmImg = document.getElementById('rmImg');
+const rmName = document.getElementById('rmName');
+const searchText = document.getElementById('searchText');
+const mcSection = document.getElementById('mcSection');
+const catName = document.getElementById('catName');
+const mealBox = document.getElementById('mealBox');
+const modalOverView = document.getElementById('modalOverView');
+const mmname = document.getElementById('mmname');
 const ingredientsList = document.getElementById('ingredientsList');
-const closeBtn = document.getElementById('closeBtn');
+const closeButton = document.getElementById('closeButton');
 
-// Event Listeners
-window.addEventListener('DOMContentLoaded', fetchRandomMeal);
-searchInput.addEventListener('input', fetchMealsByCategory);
-closeBtn.addEventListener('click', closeModal);
+window.addEventListener('DOMContentLoaded', fetchRm);
+searchText.addEventListener('input', fetchMealByCat);
+closeButton.addEventListener('click', closeModal);
 window.addEventListener('click', outsideClick);
 
-// Functions
-function fetchRandomMeal() {
-    fetch(randomMealURL)
+function fetchRm() {
+    fetch(rmURL)
         .then(response => response.json())
         .then(data => {
             const meal = data.meals[0];
-            randomMealImage.src = meal.strMealThumb;
-            randomMealName.textContent = meal.strMeal;
-            randomMealImage.addEventListener('click', () => showModal(meal));
+            rmImg.src = meal.strMealThumb;
+            rmName.textContent = meal.strMeal;
+            rmImg.addEventListener('click', () => showModal(meal));
         })
         .catch(error => console.log(error));
 }
 
-function fetchMealsByCategory(event) {
+function fetchMealByCat(event) {
     const searchTerm = event.target.value.toLowerCase();
     if (searchTerm.trim() === '') {
-        mealCategoriesSection.style.display = 'none';
+        mcSection.style.display = 'none';
         return;
     }
 
-    fetch(mealCategoriesURL)
+    fetch(MealCatURL)
         .then(response => response.json())
         .then(data => {
             const categories = data.categories;
@@ -49,10 +44,10 @@ function fetchMealsByCategory(event) {
             );
 
             if (filteredCategories.length === 0) {
-                mealCategoriesSection.style.display = 'none';
+                mcSection.style.display = 'none';
             } else {
-                mealCategoriesSection.style.display = 'block';
-                categoryName.textContent = `Results for "${searchTerm}"`;
+                mcSection.style.display = 'block';
+                catName.textContent = `Results for "${searchTerm}"`;
                 displayMealCards(filteredCategories);
             }
         })
@@ -60,7 +55,7 @@ function fetchMealsByCategory(event) {
 }
 
 function displayMealCards(categories) {
-    mealGrid.innerHTML = '';
+    mealBox.innerHTML = '';
     categories.forEach(category => {
         const mealCard = document.createElement('div');
         mealCard.classList.add('meal-card');
@@ -68,14 +63,14 @@ function displayMealCards(categories) {
             <img src="${category.strCategoryThumb}" alt="${category.strCategory}">
             <h3>${category.strCategory}</h3>
         `;
-        mealCard.addEventListener('click', () => fetchMealsByCategory({ target: { value: category.strCategory } }));
-        mealGrid.appendChild(mealCard);
+        mealCard.addEventListener('click', () => fetchMealByCat({ target: { value: category.strCategory } }));
+        mealBox.appendChild(mealCard);
     });
 }
 
 function showModal(meal) {
-    modalOverlay.style.display = 'block';
-    modalMealName.textContent = meal.strMeal;
+    modalOverView.style.display = 'block';
+    mmname.textContent = meal.strMeal;
     displayIngredients(meal);
 }
 
@@ -84,5 +79,20 @@ function displayIngredients(meal) {
     for (let i = 1; i <= 20; i++) {
         const ingredient = meal[`strIngredient${i}`];
         const measure = meal[`strMeasure${i}`];
+        if (ingredient && ingredient.trim() !== '') {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${measure} ${ingredient}`;
+            ingredientsList.appendChild(listItem);
+        }
+    }
+}
+
+function closeModal() {
+    modalOverView.style.display = 'none';
+}
+
+function outsideClick(event) {
+    if (event.target === modalOverView) {
+        modalOverView.style.display = 'none';
     }
 }
