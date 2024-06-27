@@ -9,39 +9,35 @@
 <body>
     <header>
         <div class="header-description">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <p>Random Meal Suggester</p>
         </div>
+
         <div class="search-bar">
-            <input type="text" placeholder="Search for a meal category" id="searchInput">
+            <input type="text" placeholder="Search for a meal category" id="searchText">
         </div>
     </header>
 
     <main>
         <div class="random-meal-section">
             <div class="random-meal-container">
-                <img src="" alt="Random Meal" id="randomMealImage">
-                <h3 id="randomMealName"></h3>
+                <img src="" alt="Random Meal" id="rmImg">
+                <h3 id="rmName"></h3>
             </div>
         </div>
 
-        <div class="meal-categories-section" id="mealCategoriesSection">
-            <h2 id="categoryName"></h2>
-            <div class="meal-grid" id="mealGrid"></div>
+        <div class="meal-categories-section" id="mcSection">
+            <h2 id="catName"></h2>
+            <div class="meal-grid" id="mealBox"></div>
         </div>
 
-        <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-overlay" id="modalOverView">
             <div class="modal-content">
-                <span class="close-btn" id="closeBtn">&times;</span>
-                <h3 id="modalMealName"></h3>
+                <span class="close-btn" id="closeButton">&times;</span>
+                <h3 id="mmname"></h3>
                 <ul id="ingredientsList"></ul>
             </div>
         </div>
     </main>
-
-    <footer>
-        <p>&copy; Random Meal Suggester</p>
-    </footer>
-
     <script src="app.js"></script>
 </body>
 </html>
