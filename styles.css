@@ -1,8 +1,7 @@
-/* Reset and Global Styles */
 * {
+    padding: 0;
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
 }
 
 body {
@@ -10,7 +9,6 @@ body {
     line-height: 1.6;
 }
 
-/* Header Styles */
 header {
     background-color: #f4f4f4;
     padding: 1rem;
@@ -26,7 +24,6 @@ header {
     width: 300px;
 }
 
-/* Main Content Styles */
 main {
     padding: 2rem;
 }
@@ -62,7 +59,6 @@ main {
     height: auto;
 }
 
-/* Modal Styles */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -90,18 +86,11 @@ main {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close-btn:hover,
 .close-btn:focus {
     color: black;
     text-decoration: none;
-    cursor: pointer;
-}
-
-/* Footer Styles */
-footer {
-    background-color: #f4f4f4;
-    padding: 1rem;
-    text-align: center;
 }
