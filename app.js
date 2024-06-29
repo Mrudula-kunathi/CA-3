@@ -8,7 +8,7 @@ const catName = document.getElementById('catName');
 const mealBox = document.getElementById('mealBox');
 const modalOverView = document.getElementById('modalOverView');
 const mmname = document.getElementById('mmname');
-const ingredientsList = document.getElementById('ingredientsList');
+const recipeList = document.getElementById('recipeList');
 const closeButton = document.getElementById('closeButton');
 
 window.addEventListener('DOMContentLoaded', fetchRm);
@@ -48,13 +48,13 @@ function fetchMealByCat(event) {
             } else {
                 mcSection.style.display = 'block';
                 catName.textContent = `Results for "${searchTerm}"`;
-                displayMealCards(filteredCategories);
+                showMealCards(filteredCategories);
             }
         })
         .catch(error => console.log(error));
 }
 
-function displayMealCards(categories) {
+function showMealCards(categories) {
     mealBox.innerHTML = '';
     categories.forEach(category => {
         const mealCard = document.createElement('div');
@@ -71,18 +71,18 @@ function displayMealCards(categories) {
 function showModal(meal) {
     modalOverView.style.display = 'block';
     mmname.textContent = meal.strMeal;
-    displayIngredients(meal);
+    displayingr(meal);
 }
 
-function displayIngredients(meal) {
-    ingredientsList.innerHTML = '';
+function displayingr(meal) {
+    recipeList.innerHTML = '';
     for (let i = 1; i <= 20; i++) {
         const ingredient = meal[`strIngredient${i}`];
-        const measure = meal[`strMeasure${i}`];
+        const quantity = meal[`strquantity${i}`];
         if (ingredient && ingredient.trim() !== '') {
             const listItem = document.createElement('li');
-            listItem.textContent = `${measure} ${ingredient}`;
-            ingredientsList.appendChild(listItem);
+            listItem.textContent = `${quantity} ${ingredient}`;
+            recipeList.appendChild(listItem);
         }
     }
 }
